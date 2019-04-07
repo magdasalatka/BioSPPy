@@ -75,12 +75,12 @@ def resp(signal=None, sampling_rate=1000., show=True):
         rate = []
     else:
         # compute respiration rate
-        rate_idx = beats[1:]
+        rate_idx = beats#[1:]
         rate = sampling_rate * (1. / np.diff(beats))
 
         # physiological limits
         indx = np.nonzero(rate <= 0.35)
-        rate_idx = rate_idx[indx]
+        rate_idx = rate_idx[np.concatenate([np.zeros((1,), dtype=int), indx[0]+1])] #rate_idx[indx]
         rate = rate[indx]
 
         # smooth with moving average
@@ -108,7 +108,7 @@ def resp(signal=None, sampling_rate=1000., show=True):
                            show=True)
 
     # output
-    args = (ts, filtered, zeros, ts_rate, rate)
+    args = (ts, filtered, zeros, rate_idx, rate) #ts_rate instead of rate_idx
     names = ('ts', 'filtered', 'zeros', 'resp_rate_ts', 'resp_rate')
 
     return utils.ReturnTuple(args, names)

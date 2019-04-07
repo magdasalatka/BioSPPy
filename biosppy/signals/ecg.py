@@ -118,7 +118,7 @@ def ecg(signal=None, sampling_rate=1000., show=True):
                           show=True)
 
     # output
-    args = (ts, filtered, rpeaks, ts_tmpl, templates, ts_hr, hr)
+    args = (ts, filtered, rpeaks, ts_tmpl, templates, hr_idx, hr) #hr instead of hr_idx
     names = ('ts', 'filtered', 'rpeaks', 'templates_ts', 'templates',
              'heart_rate_ts', 'heart_rate')
 

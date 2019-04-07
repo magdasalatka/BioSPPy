@@ -1431,12 +1431,12 @@ def get_heart_rate(beats=None, sampling_rate=1000., smooth=False, size=3):
         raise ValueError("Not enough beats to compute heart rate.")
 
     # compute heart rate
-    ts = beats[1:]
+    ts = beats #beats[1:]
     hr = sampling_rate * (60. / np.diff(beats))
 
     # physiological limits
     indx = np.nonzero(np.logical_and(hr >= 40, hr <= 200))
-    ts = ts[indx]
+    ts = ts[np.concatenate([np.zeros((1,), dtype=int), indx[0]+1])] #ts[indx]
     hr = hr[indx]
 
     # smooth with moving average
